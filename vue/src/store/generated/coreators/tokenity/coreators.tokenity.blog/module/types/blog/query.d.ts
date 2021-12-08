@@ -2,6 +2,7 @@ import { Reader, Writer } from "protobufjs/minimal";
 import { Post } from "../blog/post";
 import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/pagination";
 export declare const protobufPackage = "coreators.tokenity.blog";
+/** proto/blog/query.proto */
 /** this line is used by starport scaffolding # 3 */
 export interface QueryGetPostRequest {
     id: string;

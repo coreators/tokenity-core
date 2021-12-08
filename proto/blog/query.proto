@@ -1,3 +1,4 @@
+// proto/blog/query.proto
 syntax = "proto3";
 package coreators.tokenity.blog;
 
@@ -13,7 +14,6 @@ service Query {
     // this line is used by starport scaffolding # 2
     rpc Post(QueryGetPostRequest) returns (QueryGetPostResponse) {
         option (google.api.http).get = "/coreators/tokenity/blog/post/{id}";
-        // option (google.api.http).post = "/coreators/tokenity/blog/post/{id}";
     }
     rpc PostAll(QueryAllPostRequest) returns (QueryAllPostResponse) {
         option (google.api.http).get = "/coreators/tokenity/blog/post";
