@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { Comment } from "../blog/comment";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "coreators.tokenity.blog";
@@ -10,7 +11,7 @@ export interface Post {
   creator: string;
   image: Uint8Array;
   content: string;
-  comments: string[];
+  comments: Comment[];
 }
 
 export interface MsgCreatePost {
@@ -19,7 +20,7 @@ export interface MsgCreatePost {
   content: string;
 }
 
-const basePost: object = { id: "", creator: "", content: "", comments: "" };
+const basePost: object = { id: "", creator: "", content: "" };
 
 export const Post = {
   encode(message: Post, writer: Writer = Writer.create()): Writer {
@@ -36,7 +37,7 @@ export const Post = {
       writer.uint32(34).string(message.content);
     }
     for (const v of message.comments) {
-      writer.uint32(42).string(v!);
+      Comment.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
@@ -62,7 +63,7 @@ export const Post = {
           message.content = reader.string();
           break;
         case 5:
-          message.comments.push(reader.string());
+          message.comments.push(Comment.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -95,7 +96,7 @@ export const Post = {
     }
     if (object.comments !== undefined && object.comments !== null) {
       for (const e of object.comments) {
-        message.comments.push(String(e));
+        message.comments.push(Comment.fromJSON(e));
       }
     }
     return message;
@@ -111,7 +112,9 @@ export const Post = {
       ));
     message.content !== undefined && (obj.content = message.content);
     if (message.comments) {
-      obj.comments = message.comments.map((e) => e);
+      obj.comments = message.comments.map((e) =>
+        e ? Comment.toJSON(e) : undefined
+      );
     } else {
       obj.comments = [];
     }
@@ -143,7 +146,7 @@ export const Post = {
     }
     if (object.comments !== undefined && object.comments !== null) {
       for (const e of object.comments) {
-        message.comments.push(e);
+        message.comments.push(Comment.fromPartial(e));
       }
     }
     return message;

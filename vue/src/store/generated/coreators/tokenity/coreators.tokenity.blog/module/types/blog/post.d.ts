@@ -1,3 +1,4 @@
+import { Comment } from "../blog/comment";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "coreators.tokenity.blog";
 /** proto/blog/post.proto */
@@ -6,7 +7,7 @@ export interface Post {
     creator: string;
     image: Uint8Array;
     content: string;
-    comments: string[];
+    comments: Comment[];
 }
 export interface MsgCreatePost {
     creator: string;

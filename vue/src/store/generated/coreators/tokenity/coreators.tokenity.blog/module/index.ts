@@ -4,13 +4,13 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreatePost } from "./types/blog/post";
 import { MsgCreateComment } from "./types/blog/comment";
+import { MsgCreatePost } from "./types/blog/post";
 
 
 const types = [
-  ["/coreators.tokenity.blog.MsgCreatePost", MsgCreatePost],
   ["/coreators.tokenity.blog.MsgCreateComment", MsgCreateComment],
+  ["/coreators.tokenity.blog.MsgCreatePost", MsgCreatePost],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -39,8 +39,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCreatePost: (data: MsgCreatePost): EncodeObject => ({ typeUrl: "/coreators.tokenity.blog.MsgCreatePost", value: data }),
     msgCreateComment: (data: MsgCreateComment): EncodeObject => ({ typeUrl: "/coreators.tokenity.blog.MsgCreateComment", value: data }),
+    msgCreatePost: (data: MsgCreatePost): EncodeObject => ({ typeUrl: "/coreators.tokenity.blog.MsgCreatePost", value: data }),
     
   };
 };
