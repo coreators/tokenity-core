@@ -1,0 +1,22 @@
+// proto/blog/post.proto
+syntax = "proto3";
+package coreators.tokenity.blog;
+import "blog/comment.proto";
+
+option go_package = "github.com/coreators/tokenity/x/blog/types";
+
+import "gogoproto/gogo.proto";
+
+message Post {
+  string id = 1;
+  string creator = 2;
+  bytes image = 3;
+  string content = 4;
+  repeated Comment comments = 5;
+}
+
+message MsgCreatePost {
+  string creator = 1;
+  bytes image = 2;
+  string content = 3;
+}

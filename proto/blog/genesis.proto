@@ -1,0 +1,11 @@
+syntax = "proto3";
+package coreators.tokenity.blog;
+
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/coreators/tokenity/x/blog/types";
+
+// GenesisState defines the blog module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+}

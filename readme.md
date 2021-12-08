@@ -9,6 +9,26 @@ starport chain serve
 
 `serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
 
+## Environments
+* Starport v0.18.4
+* Go version go1.17 darwin/amd64
+
+## Module
+### blog
+Posts in the key-value store look like this:
+```
+"post-0": {
+  "Creator": "",
+  "Images": "",
+  "Content": "",
+  "Replies": "",
+}
+```
+
+## CLI
+
+## API
+
 ### Configure
 
 Your blockchain in development can be configured with `config.yml`. To learn more, see the [Starport docs](https://docs.starport.network).
@@ -16,18 +36,6 @@ Your blockchain in development can be configured with `config.yml`. To learn mor
 ### Launch
 
 To launch your blockchain live on multiple nodes, use `starport network` commands. Learn more about [Starport Network](https://github.com/tendermint/spn).
-
-### Web Frontend
-
-Starport has scaffolded a Vue.js-based web app in the `vue` directory. Run the following commands to install dependencies and start the app:
-
-```
-cd vue
-npm install
-npm run serve
-```
-
-The frontend app is built using the `@starport/vue` and `@starport/vuex` packages. For details, see the [monorepo for Starport front-end development](https://github.com/tendermint/vue).
 
 ## Release
 To release a new version of your blockchain, create and push a new tag with `v` prefix. A new draft release with the configured targets will be created.
