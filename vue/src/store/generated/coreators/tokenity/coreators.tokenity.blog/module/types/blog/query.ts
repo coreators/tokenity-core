@@ -8,6 +8,8 @@ import {
 
 export const protobufPackage = "coreators.tokenity.blog";
 
+/** proto/blog/query.proto */
+
 /** this line is used by starport scaffolding # 3 */
 export interface QueryGetPostRequest {
   id: string;
