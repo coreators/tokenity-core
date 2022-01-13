@@ -61,7 +61,7 @@ starport chain serve
 `serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
 
 ## Environments
-* Starport v0.18.4
+* Starport v0.19.1
 * Go version go1.17 darwin/amd64
 
 ## Module
