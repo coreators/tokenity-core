@@ -1,0 +1,11 @@
+syntax = "proto3";
+package coreators.tokenity.blog;
+
+option go_package = "github.com/coreators/tokenity/x/blog/types";
+
+message Post {
+  uint64 id = 1;
+  string contents = 2; 
+  string description = 3; 
+  string creator = 4;
+}

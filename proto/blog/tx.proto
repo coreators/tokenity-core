@@ -1,13 +1,43 @@
 syntax = "proto3";
 package coreators.tokenity.blog;
 
+import "blog/post.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/coreators/tokenity/x/blog/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+    rpc CreatePost(MsgCreatePost) returns (MsgCreatePostResponse);
+  rpc UpdatePost(MsgUpdatePost) returns (MsgUpdatePostResponse);
+  rpc DeletePost(MsgDeletePost) returns (MsgDeletePostResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
 }
+
+message MsgCreatePost {
+  string creator = 1;
+  string contents = 2;
+  string description = 3;
+}
+
+message MsgCreatePostResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdatePost {
+  string creator = 1;
+  uint64 id = 2;
+  string contents = 3;
+  string description = 4;
+}
+
+message MsgUpdatePostResponse {}
+
+message MsgDeletePost {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeletePostResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

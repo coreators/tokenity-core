@@ -3,6 +3,7 @@ package coreators.tokenity.blog;
 
 import "gogoproto/gogo.proto";
 import "blog/params.proto";
+import "blog/post.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/coreators/tokenity/x/blog/types";
@@ -10,5 +11,7 @@ option go_package = "github.com/coreators/tokenity/x/blog/types";
 // GenesisState defines the blog module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  repeated Post postList = 2 [(gogoproto.nullable) = false];
+  uint64 postCount = 3;
   // this line is used by starport scaffolding # genesis/proto/state
 }
