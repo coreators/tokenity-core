@@ -58,11 +58,21 @@ paths:
                     id:
                       type: string
                       format: uint64
-                    contents:
+                    creator:
                       type: string
+                    contents:
+                      type: array
+                      items:
+                        type: string
                     description:
                       type: string
-                    creator:
+                    comments:
+                      type: array
+                      items:
+                        type: string
+                    isStory:
+                      type: boolean
+                    createdAt:
                       type: string
               pagination:
                 type: object
@@ -184,11 +194,21 @@ paths:
                   id:
                     type: string
                     format: uint64
-                  contents:
+                  creator:
                     type: string
+                  contents:
+                    type: array
+                    items:
+                      type: string
                   description:
                     type: string
-                  creator:
+                  comments:
+                    type: array
+                    items:
+                      type: string
+                  isStory:
+                    type: boolean
+                  createdAt:
                     type: string
         default:
           description: An unexpected error response.
@@ -12806,11 +12826,21 @@ definitions:
       id:
         type: string
         format: uint64
-      contents:
+      creator:
         type: string
+      contents:
+        type: array
+        items:
+          type: string
       description:
         type: string
-      creator:
+      comments:
+        type: array
+        items:
+          type: string
+      isStory:
+        type: boolean
+      createdAt:
         type: string
   coreators.tokenity.blog.QueryAllPostResponse:
     type: object
@@ -12823,11 +12853,21 @@ definitions:
             id:
               type: string
               format: uint64
-            contents:
+            creator:
               type: string
+            contents:
+              type: array
+              items:
+                type: string
             description:
               type: string
-            creator:
+            comments:
+              type: array
+              items:
+                type: string
+            isStory:
+              type: boolean
+            createdAt:
               type: string
       pagination:
         type: object
@@ -12863,11 +12903,21 @@ definitions:
           id:
             type: string
             format: uint64
-          contents:
+          creator:
             type: string
+          contents:
+            type: array
+            items:
+              type: string
           description:
             type: string
-          creator:
+          comments:
+            type: array
+            items:
+              type: string
+          isStory:
+            type: boolean
+          createdAt:
             type: string
   coreators.tokenity.blog.QueryParamsResponse:
     type: object

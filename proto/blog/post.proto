@@ -5,7 +5,10 @@ option go_package = "github.com/coreators/tokenity/x/blog/types";
 
 message Post {
   uint64 id = 1;
-  string contents = 2; 
-  string description = 3; 
-  string creator = 4;
+  string creator = 2;
+  repeated string contents = 3;
+  string description = 4;
+  repeated string comments = 5;
+  bool isStory = 6;
+  string createdAt = 7;
 }

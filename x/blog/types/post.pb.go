@@ -23,10 +23,13 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type Post struct {
-	Id          uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Contents    string `protobuf:"bytes,2,opt,name=contents,proto3" json:"contents,omitempty"`
-	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Creator     string `protobuf:"bytes,4,opt,name=creator,proto3" json:"creator,omitempty"`
+	Id          uint64   `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Creator     string   `protobuf:"bytes,2,opt,name=creator,proto3" json:"creator,omitempty"`
+	Contents    []string `protobuf:"bytes,3,rep,name=contents,proto3" json:"contents,omitempty"`
+	Description string   `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+	Comments    []string `protobuf:"bytes,5,rep,name=comments,proto3" json:"comments,omitempty"`
+	IsStory     bool     `protobuf:"varint,6,opt,name=isStory,proto3" json:"isStory,omitempty"`
+	CreatedAt   string   `protobuf:"bytes,7,opt,name=createdAt,proto3" json:"createdAt,omitempty"`
 }
 
 func (m *Post) Reset()         { *m = Post{} }
@@ -69,11 +72,18 @@ func (m *Post) GetId() uint64 {
 	return 0
 }
 
-func (m *Post) GetContents() string {
+func (m *Post) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *Post) GetContents() []string {
 	if m != nil {
 		return m.Contents
 	}
-	return ""
+	return nil
 }
 
 func (m *Post) GetDescription() string {
@@ -83,9 +93,23 @@ func (m *Post) GetDescription() string {
 	return ""
 }
 
-func (m *Post) GetCreator() string {
+func (m *Post) GetComments() []string {
 	if m != nil {
-		return m.Creator
+		return m.Comments
+	}
+	return nil
+}
+
+func (m *Post) GetIsStory() bool {
+	if m != nil {
+		return m.IsStory
+	}
+	return false
+}
+
+func (m *Post) GetCreatedAt() string {
+	if m != nil {
+		return m.CreatedAt
 	}
 	return ""
 }
@@ -97,20 +121,23 @@ func init() {
 func init() { proto.RegisterFile("blog/post.proto", fileDescriptor_1da4a141e1c534d3) }
 
 var fileDescriptor_1da4a141e1c534d3 = []byte{
-	// 204 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4f, 0xca, 0xc9, 0x4f,
-	0xd7, 0x2f, 0xc8, 0x2f, 0x2e, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x4f, 0xce, 0x2f,
-	0x4a, 0x4d, 0x2c, 0xc9, 0x2f, 0x2a, 0xd6, 0x2b, 0xc9, 0xcf, 0x4e, 0xcd, 0xcb, 0x2c, 0xa9, 0xd4,
-	0x03, 0xa9, 0x51, 0xca, 0xe3, 0x62, 0x09, 0xc8, 0x2f, 0x2e, 0x11, 0xe2, 0xe3, 0x62, 0xca, 0x4c,
-	0x91, 0x60, 0x54, 0x60, 0xd4, 0x60, 0x09, 0x62, 0xca, 0x4c, 0x11, 0x92, 0xe2, 0xe2, 0x48, 0xce,
-	0xcf, 0x2b, 0x49, 0xcd, 0x2b, 0x29, 0x96, 0x60, 0x52, 0x60, 0xd4, 0xe0, 0x0c, 0x82, 0xf3, 0x85,
-	0x14, 0xb8, 0xb8, 0x53, 0x52, 0x8b, 0x93, 0x8b, 0x32, 0x0b, 0x4a, 0x32, 0xf3, 0xf3, 0x24, 0x98,
-	0xc1, 0xd2, 0xc8, 0x42, 0x42, 0x12, 0x5c, 0xec, 0xc9, 0x10, 0xfb, 0x24, 0x58, 0xc0, 0xb2, 0x30,
-	0xae, 0x93, 0xcb, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38,
-	0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x69, 0xa5, 0x67,
-	0x96, 0x64, 0x94, 0x26, 0xe9, 0x25, 0xe7, 0xe7, 0xea, 0xc3, 0x5d, 0xab, 0x0f, 0x73, 0xad, 0x7e,
-	0x85, 0x3e, 0xd8, 0x4f, 0x25, 0x95, 0x05, 0xa9, 0xc5, 0x49, 0x6c, 0x60, 0x5f, 0x19, 0x03, 0x02,
-	0x00, 0x00, 0xff, 0xff, 0x78, 0x48, 0xd1, 0x37, 0xe8, 0x00, 0x00, 0x00,
+	// 247 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x4c, 0x90, 0x41, 0x4a, 0xc4, 0x30,
+	0x14, 0x86, 0x9b, 0x4e, 0x9d, 0x99, 0x46, 0x50, 0xc8, 0xc6, 0x20, 0x12, 0x82, 0xab, 0xe2, 0xa2,
+	0x59, 0x78, 0x02, 0xc5, 0x03, 0x48, 0xdd, 0xb9, 0xb3, 0x69, 0x18, 0x83, 0xb6, 0xaf, 0x24, 0x4f,
+	0xb0, 0xb7, 0xf0, 0x4c, 0xae, 0x5c, 0xce, 0xd2, 0xa5, 0xb4, 0x17, 0x91, 0x49, 0x49, 0x75, 0xf9,
+	0x3d, 0xf2, 0xe5, 0x87, 0x8f, 0x9e, 0xd6, 0xaf, 0xb0, 0x53, 0x3d, 0x78, 0x2c, 0x7b, 0x07, 0x08,
+	0xec, 0x4c, 0x83, 0x33, 0x4f, 0x08, 0xce, 0x97, 0x08, 0x2f, 0xa6, 0xb3, 0x38, 0x94, 0x87, 0x37,
+	0x97, 0x9f, 0x84, 0x66, 0xf7, 0xe0, 0x91, 0x9d, 0xd0, 0xd4, 0x36, 0x9c, 0x48, 0x52, 0x64, 0x55,
+	0x6a, 0x1b, 0xc6, 0xe9, 0x46, 0xcf, 0x0a, 0x4f, 0x25, 0x29, 0xf2, 0x2a, 0x22, 0x3b, 0xa7, 0x5b,
+	0x0d, 0x1d, 0x9a, 0x0e, 0x3d, 0x5f, 0xc9, 0x55, 0x91, 0x57, 0x0b, 0x33, 0x49, 0x8f, 0x1b, 0xe3,
+	0xb5, 0xb3, 0x3d, 0x5a, 0xe8, 0x78, 0x16, 0xcc, 0xff, 0xa7, 0xd9, 0x6e, 0xdb, 0x60, 0x1f, 0x45,
+	0x7b, 0xe6, 0xc3, 0xa6, 0xf5, 0x0f, 0x08, 0x6e, 0xe0, 0x6b, 0x49, 0x8a, 0x6d, 0x15, 0x91, 0x5d,
+	0xd0, 0x3c, 0xcc, 0x9b, 0xe6, 0x06, 0xf9, 0x26, 0xfc, 0xfa, 0x77, 0xb8, 0xbd, 0xfb, 0x1a, 0x05,
+	0xd9, 0x8f, 0x82, 0xfc, 0x8c, 0x82, 0x7c, 0x4c, 0x22, 0xd9, 0x4f, 0x22, 0xf9, 0x9e, 0x44, 0xf2,
+	0x78, 0xb5, 0xb3, 0xf8, 0xfc, 0x56, 0x97, 0x1a, 0x5a, 0xb5, 0x24, 0x50, 0x31, 0x81, 0x7a, 0x57,
+	0x21, 0x14, 0x0e, 0xbd, 0xf1, 0xf5, 0x3a, 0xa4, 0xba, 0xfe, 0x0d, 0x00, 0x00, 0xff, 0xff, 0x6e,
+	0xb3, 0x09, 0xb4, 0x3d, 0x01, 0x00, 0x00,
 }
 
 func (m *Post) Marshal() (dAtA []byte, err error) {
@@ -133,24 +160,52 @@ func (m *Post) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
-	if len(m.Creator) > 0 {
-		i -= len(m.Creator)
-		copy(dAtA[i:], m.Creator)
-		i = encodeVarintPost(dAtA, i, uint64(len(m.Creator)))
+	if len(m.CreatedAt) > 0 {
+		i -= len(m.CreatedAt)
+		copy(dAtA[i:], m.CreatedAt)
+		i = encodeVarintPost(dAtA, i, uint64(len(m.CreatedAt)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x3a
+	}
+	if m.IsStory {
+		i--
+		if m.IsStory {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x30
+	}
+	if len(m.Comments) > 0 {
+		for iNdEx := len(m.Comments) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Comments[iNdEx])
+			copy(dAtA[i:], m.Comments[iNdEx])
+			i = encodeVarintPost(dAtA, i, uint64(len(m.Comments[iNdEx])))
+			i--
+			dAtA[i] = 0x2a
+		}
 	}
 	if len(m.Description) > 0 {
 		i -= len(m.Description)
 		copy(dAtA[i:], m.Description)
 		i = encodeVarintPost(dAtA, i, uint64(len(m.Description)))
 		i--
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x22
 	}
 	if len(m.Contents) > 0 {
-		i -= len(m.Contents)
-		copy(dAtA[i:], m.Contents)
-		i = encodeVarintPost(dAtA, i, uint64(len(m.Contents)))
+		for iNdEx := len(m.Contents) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.Contents[iNdEx])
+			copy(dAtA[i:], m.Contents[iNdEx])
+			i = encodeVarintPost(dAtA, i, uint64(len(m.Contents[iNdEx])))
+			i--
+			dAtA[i] = 0x1a
+		}
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintPost(dAtA, i, uint64(len(m.Creator)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -182,15 +237,30 @@ func (m *Post) Size() (n int) {
 	if m.Id != 0 {
 		n += 1 + sovPost(uint64(m.Id))
 	}
-	l = len(m.Contents)
+	l = len(m.Creator)
 	if l > 0 {
 		n += 1 + l + sovPost(uint64(l))
+	}
+	if len(m.Contents) > 0 {
+		for _, s := range m.Contents {
+			l = len(s)
+			n += 1 + l + sovPost(uint64(l))
+		}
 	}
 	l = len(m.Description)
 	if l > 0 {
 		n += 1 + l + sovPost(uint64(l))
 	}
-	l = len(m.Creator)
+	if len(m.Comments) > 0 {
+		for _, s := range m.Comments {
+			l = len(s)
+			n += 1 + l + sovPost(uint64(l))
+		}
+	}
+	if m.IsStory {
+		n += 2
+	}
+	l = len(m.CreatedAt)
 	if l > 0 {
 		n += 1 + l + sovPost(uint64(l))
 	}
@@ -253,6 +323,38 @@ func (m *Post) Unmarshal(dAtA []byte) error {
 			}
 		case 2:
 			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowPost
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthPost
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthPost
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Contents", wireType)
 			}
 			var stringLen uint64
@@ -281,9 +383,9 @@ func (m *Post) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Contents = string(dAtA[iNdEx:postIndex])
+			m.Contents = append(m.Contents, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
-		case 3:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
 			}
@@ -315,9 +417,9 @@ func (m *Post) Unmarshal(dAtA []byte) error {
 			}
 			m.Description = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 4:
+		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Comments", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -345,7 +447,59 @@ func (m *Post) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Creator = string(dAtA[iNdEx:postIndex])
+			m.Comments = append(m.Comments, string(dAtA[iNdEx:postIndex]))
+			iNdEx = postIndex
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IsStory", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowPost
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.IsStory = bool(v != 0)
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CreatedAt", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowPost
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthPost
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthPost
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CreatedAt = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
