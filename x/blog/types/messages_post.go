@@ -66,11 +66,11 @@ var _ sdk.Msg = &MsgUpdatePost{}
 
 func NewMsgUpdatePost(creator string, id uint64, jsonContents string, description string, isStory bool) *MsgUpdatePost {
 	var contents []*Content
-	json.Unmarshal([]byte(jsonContents), &contents)
-
-	for _, jsonContent := range contents {
-		println(jsonContent)
+	err := json.Unmarshal([]byte(jsonContents), &contents)
+	if err != nil {
+		println("Contents json parsing error : ", err)
 	}
+
 	return &MsgUpdatePost{
 		Id:          id,
 		Creator:     creator,

@@ -8,13 +8,12 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 func CmdCreatePost() *cobra.Command {
 	// var contents []string
 	cmd := &cobra.Command{
-		Use:   "create-post [description] [isStory] [contents]",
+		Use:   "create-post [contents] [description] [isStory]",
 		Short: "Create a new post",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
@@ -60,7 +59,10 @@ func CmdUpdatePost() *cobra.Command {
 			argContents := args[1]
 
 			argDescription := args[2]
-			argIsStory := viper.GetBool(args[3])
+			argIsStory, err := strconv.ParseBool(args[3])
+			if err != nil {
+				cmd.PrintErr("isStory - Boolean parsing error: ", err)
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
