@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/coreators/tokenity/x/blog/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -16,6 +17,8 @@ func (k msgServer) CreatePost(goCtx context.Context, msg *types.MsgCreatePost) (
 		Creator:     msg.Creator,
 		Contents:    msg.Contents,
 		Description: msg.Description,
+		Dates:       time.Now().UTC().String(),
+		IsStory:     msg.IsStory,
 	}
 
 	id := k.AppendPost(

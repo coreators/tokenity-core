@@ -63,7 +63,12 @@ paths:
                     contents:
                       type: array
                       items:
-                        type: string
+                        type: object
+                        properties:
+                          content:
+                            type: string
+                          type:
+                            type: string
                     description:
                       type: string
                     comments:
@@ -72,7 +77,7 @@ paths:
                         type: string
                     isStory:
                       type: boolean
-                    createdAt:
+                    dates:
                       type: string
               pagination:
                 type: object
@@ -199,7 +204,12 @@ paths:
                   contents:
                     type: array
                     items:
-                      type: string
+                      type: object
+                      properties:
+                        content:
+                          type: string
+                        type:
+                          type: string
                   description:
                     type: string
                   comments:
@@ -208,7 +218,7 @@ paths:
                       type: string
                   isStory:
                     type: boolean
-                  createdAt:
+                  dates:
                     type: string
         default:
           description: An unexpected error response.
@@ -12807,6 +12817,13 @@ paths:
       tags:
         - Query
 definitions:
+  coreators.tokenity.blog.Content:
+    type: object
+    properties:
+      content:
+        type: string
+      type:
+        type: string
   coreators.tokenity.blog.MsgCreatePostResponse:
     type: object
     properties:
@@ -12831,7 +12848,12 @@ definitions:
       contents:
         type: array
         items:
-          type: string
+          type: object
+          properties:
+            content:
+              type: string
+            type:
+              type: string
       description:
         type: string
       comments:
@@ -12840,7 +12862,7 @@ definitions:
           type: string
       isStory:
         type: boolean
-      createdAt:
+      dates:
         type: string
   coreators.tokenity.blog.QueryAllPostResponse:
     type: object
@@ -12858,7 +12880,12 @@ definitions:
             contents:
               type: array
               items:
-                type: string
+                type: object
+                properties:
+                  content:
+                    type: string
+                  type:
+                    type: string
             description:
               type: string
             comments:
@@ -12867,7 +12894,7 @@ definitions:
                 type: string
             isStory:
               type: boolean
-            createdAt:
+            dates:
               type: string
       pagination:
         type: object
@@ -12908,7 +12935,12 @@ definitions:
           contents:
             type: array
             items:
-              type: string
+              type: object
+              properties:
+                content:
+                  type: string
+                type:
+                  type: string
           description:
             type: string
           comments:
@@ -12917,7 +12949,7 @@ definitions:
               type: string
           isStory:
             type: boolean
-          createdAt:
+          dates:
             type: string
   coreators.tokenity.blog.QueryParamsResponse:
     type: object

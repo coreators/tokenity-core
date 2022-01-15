@@ -1,6 +1,8 @@
 package types
 
 import (
+	"encoding/json"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -13,12 +15,22 @@ const (
 
 var _ sdk.Msg = &MsgCreatePost{}
 
-func NewMsgCreatePost(creator string, contents string, description string) *MsgCreatePost {
-	return &MsgCreatePost{
+func NewMsgCreatePost(creator string, jsonContents string, description string, isStory bool) *MsgCreatePost {
+	var contents []*Content
+
+	err := json.Unmarshal([]byte(jsonContents), &contents)
+	if err != nil {
+		println("Contents json parsing error : ", err)
+	}
+
+	newPost := &MsgCreatePost{
 		Creator:     creator,
 		Contents:    contents,
 		Description: description,
+		IsStory:     isStory,
 	}
+
+	return newPost
 }
 
 func (msg *MsgCreatePost) Route() string {
@@ -52,12 +64,19 @@ func (msg *MsgCreatePost) ValidateBasic() error {
 
 var _ sdk.Msg = &MsgUpdatePost{}
 
-func NewMsgUpdatePost(creator string, id uint64, contents string, description string) *MsgUpdatePost {
+func NewMsgUpdatePost(creator string, id uint64, jsonContents string, description string, isStory bool) *MsgUpdatePost {
+	var contents []*Content
+	json.Unmarshal([]byte(jsonContents), &contents)
+
+	for _, jsonContent := range contents {
+		println(jsonContent)
+	}
 	return &MsgUpdatePost{
 		Id:          id,
 		Creator:     creator,
 		Contents:    contents,
 		Description: description,
+		IsStory:     isStory,
 	}
 }
 

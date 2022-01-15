@@ -16,8 +16,9 @@ service Msg {
 
 message MsgCreatePost {
   string creator = 1;
-  string contents = 2;
+  repeated Content contents = 2;
   string description = 3;
+  bool isStory = 4;
 }
 
 message MsgCreatePostResponse {
@@ -27,8 +28,9 @@ message MsgCreatePostResponse {
 message MsgUpdatePost {
   string creator = 1;
   uint64 id = 2;
-  string contents = 3;
+  repeated Content contents = 3;
   string description = 4;
+  bool isStory = 5;
 }
 
 message MsgUpdatePostResponse {}

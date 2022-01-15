@@ -8,29 +8,38 @@ import (
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 func CmdCreatePost() *cobra.Command {
+	// var contents []string
 	cmd := &cobra.Command{
-		Use:   "create-post [contents] [description]",
+		Use:   "create-post [description] [isStory] [contents]",
 		Short: "Create a new post",
-		Args:  cobra.ExactArgs(2),
+		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argContents := args[0]
 			argDescription := args[1]
+			argIsStory, err := strconv.ParseBool(args[2])
+			if err != nil {
+				cmd.PrintErr("isStory - Boolean parsing error: ", err)
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgCreatePost(clientCtx.GetFromAddress().String(), argContents, argDescription)
+			creator := clientCtx.GetFromAddress().String()
+
+			msg := types.NewMsgCreatePost(creator, argContents, argDescription, argIsStory)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
 			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
 		},
 	}
+	// cmd.Flags().StringArrayVarP(&contents, "arr", "a", []string{}, "")
 
 	flags.AddTxFlagsToCmd(cmd)
 
@@ -39,9 +48,9 @@ func CmdCreatePost() *cobra.Command {
 
 func CmdUpdatePost() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "update-post [id] [contents] [description]",
+		Use:   "update-post [id] [contents] [description] [isStory]",
 		Short: "Update a post",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(4),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			id, err := strconv.ParseUint(args[0], 10, 64)
 			if err != nil {
@@ -51,13 +60,14 @@ func CmdUpdatePost() *cobra.Command {
 			argContents := args[1]
 
 			argDescription := args[2]
+			argIsStory := viper.GetBool(args[3])
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
 				return err
 			}
 
-			msg := types.NewMsgUpdatePost(clientCtx.GetFromAddress().String(), id, argContents, argDescription)
+			msg := types.NewMsgUpdatePost(clientCtx.GetFromAddress().String(), id, argContents, argDescription, argIsStory)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
