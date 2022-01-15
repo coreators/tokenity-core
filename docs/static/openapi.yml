@@ -77,7 +77,9 @@ paths:
                         type: string
                     isStory:
                       type: boolean
-                    dates:
+                    createdAt:
+                      type: string
+                    updatedAt:
                       type: string
               pagination:
                 type: object
@@ -218,7 +220,9 @@ paths:
                       type: string
                   isStory:
                     type: boolean
-                  dates:
+                  createdAt:
+                    type: string
+                  updatedAt:
                     type: string
         default:
           description: An unexpected error response.
@@ -12862,7 +12866,9 @@ definitions:
           type: string
       isStory:
         type: boolean
-      dates:
+      createdAt:
+        type: string
+      updatedAt:
         type: string
   coreators.tokenity.blog.QueryAllPostResponse:
     type: object
@@ -12894,7 +12900,9 @@ definitions:
                 type: string
             isStory:
               type: boolean
-            dates:
+            createdAt:
+              type: string
+            updatedAt:
               type: string
       pagination:
         type: object
@@ -12949,7 +12957,9 @@ definitions:
               type: string
           isStory:
             type: boolean
-          dates:
+          createdAt:
+            type: string
+          updatedAt:
             type: string
   coreators.tokenity.blog.QueryParamsResponse:
     type: object

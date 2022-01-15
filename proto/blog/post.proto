@@ -10,7 +10,8 @@ message Post {
   string description = 4;
   repeated string comments = 5;
   bool isStory = 6;
-  string dates = 7;
+  string createdAt = 7;
+  string updatedAt = 8;
 }
 
 message Content {

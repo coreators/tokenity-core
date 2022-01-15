@@ -17,7 +17,7 @@ func (k msgServer) CreatePost(goCtx context.Context, msg *types.MsgCreatePost) (
 		Creator:     msg.Creator,
 		Contents:    msg.Contents,
 		Description: msg.Description,
-		Dates:       time.Now().UTC().String(),
+		CreatedAt:   time.Now().UTC().String(),
 		IsStory:     msg.IsStory,
 	}
 
@@ -39,6 +39,8 @@ func (k msgServer) UpdatePost(goCtx context.Context, msg *types.MsgUpdatePost) (
 		Id:          msg.Id,
 		Contents:    msg.Contents,
 		Description: msg.Description,
+		UpdatedAt:   time.Now().UTC().String(),
+		IsStory:     msg.IsStory,
 	}
 
 	// Checks that the element exists
