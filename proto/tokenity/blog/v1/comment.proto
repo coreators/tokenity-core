@@ -1,5 +1,5 @@
 syntax = "proto3";
-package coreators.tokenity.blog;
+package tokenity.blog.v1;
 
 option go_package = "github.com/coreators/tokenity/x/blog/types";
 

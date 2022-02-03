@@ -1,9 +1,9 @@
 syntax = "proto3";
-package coreators.tokenity.blog;
+package tokenity.blog.v1;
 
 import "gogoproto/gogo.proto";
-import "blog/params.proto";
-import "blog/post.proto";
+import "tokenity/blog/v1/params.proto";
+import "tokenity/blog/v1/post.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/coreators/tokenity/x/blog/types";

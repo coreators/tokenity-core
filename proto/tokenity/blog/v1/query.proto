@@ -1,11 +1,11 @@
 syntax = "proto3";
-package coreators.tokenity.blog;
+package tokenity.blog.v1;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "blog/params.proto";
-import "blog/post.proto";
+import "tokenity/blog/v1/params.proto";
+import "tokenity/blog/v1/post.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/coreators/tokenity/x/blog/types";
@@ -14,16 +14,16 @@ option go_package = "github.com/coreators/tokenity/x/blog/types";
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/coreators/tokenity/blog/params";
+    option (google.api.http).get = "/tokenity/blog/v1/params";
   }
   // Queries a Post by id.
 	rpc Post(QueryGetPostRequest) returns (QueryGetPostResponse) {
-		option (google.api.http).get = "/coreators/tokenity/blog/post/{id}";
+		option (google.api.http).get = "/tokenity/blog/v1/post/{id}";
 	}
 
 	// Queries a list of Post items.
 	rpc PostAll(QueryAllPostRequest) returns (QueryAllPostResponse) {
-		option (google.api.http).get = "/coreators/tokenity/blog/post";
+		option (google.api.http).get = "/tokenity/v1/blog/post";
 	}
 
 // this line is used by starport scaffolding # 2
